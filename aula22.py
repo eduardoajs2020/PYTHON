@@ -3,10 +3,10 @@ num2 = input('Digite o Segundo numero: ')
 
 
 num1 = float(num1)
-num2 = float (num2)
+num2 = float(num2)
 
 
-resultado = float (num1*num2)
+resultado = float(num1*num2)
 
 print(resultado)
 

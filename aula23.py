@@ -5,8 +5,6 @@ Split, Join, Enumerate em Python
 * Enumerate - Enumerar elementos da lista # list #iteraveis
 """
 
-from xmlrpc.client import boolean
-
 
 string = "O Brasil é o pais do futebol, o Brasil é penta !"
 string2 = "O Brasil é ruim de bola!"
