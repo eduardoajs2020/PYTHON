@@ -89,7 +89,6 @@ Abs
 
 Lira Python
 """
-
 pyperclip.copy("texto")
 pyautogui.hotkey ("ctrl", "v")
 

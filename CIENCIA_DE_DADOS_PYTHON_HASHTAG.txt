@@ -1,24 +1,24 @@
-Projeto Previsão de vendas(Ciência de dados)
+#Projeto Previsão de vendas(Ciência de dados)
 
-1- Entendendo o desafio
+#1- Entendendo o desafio
 
-2- Entendimento da Area/Empresa
+#2- Entendimento da Area/Empresa
 
-3- Extração/Obtenção de Dados
+#3- Extração/Obtenção de Dados
 #Importar a base de dados
 
 Import pandas as pd
 tabela = pd.read_csv("advertising.csv")
 print(tabela)
 
-4- Ajuste de Dados(Tratamento/limpeza)
+#4- Ajuste de Dados(Tratamento/limpeza)
 
 # Instalar
 #!pip install matplotlib -> Gráficos
 #!pip install seaborn -> Gráficos
 #!pip install scikit-learn -> inteligência artificial
 
-5- Análise exploratória
+#5- Análise exploratória
 #Vamos tentar visualizar como as informações de cada item estão distribuidas
 #Vamos ver a correlação de cada um dos itens
 

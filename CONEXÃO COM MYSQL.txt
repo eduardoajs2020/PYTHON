@@ -1,0 +1,33 @@
+Aqui está um exemplo de código de conexão a um banco de dados MySQL usando o módulo python mysql-connector-python:
+
+Copy code
+import mysql.connector
+
+# Crie uma conexão com o banco de dados
+mydb = mysql.connector.connect(
+  host="hostname",
+  user="username",
+  password="password",
+  database="database_name"
+)
+
+# Crie um cursor para interagir com o banco de dados
+mycursor = mydb.cursor()
+
+# Execute uma consulta
+mycursor.execute("SELECT * FROM table_name")
+
+# Obtenha o resultado da consulta
+result = mycursor.fetchall()
+
+# Imprima o resultado
+for x in result:
+  print(x)
+
+# Feche a conexão com o banco de dados
+mydb.close()
+Tenha em mente que você precisará instalar o mysql-connector-python antes de usar o código acima, usando o comando:
+
+Copy code
+pip install mysql-connector-python
+Este código mostra uma conexão básica com o banco de dados, mas existem outras operações que podem ser realizadas como inserção, atualização e deleção, além de outras configurações avançadas, tudo isso pode ser encontrado na documentação oficial do mysql-connector-python.

@@ -1,0 +1,40 @@
+import openai
+
+#chave de autenticação
+openai.api_key = "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"
+
+response = openai.Completion.create(model="text-davinci-003", prompt="Você pode explicar o que é um transformer no contexto de NLP?")
+
+print(response.choices[0].text)
+
+
+
+
+
+3. Use variáveis de ambiente no lugar de sua chave de API
+Uma variável de ambiente é uma variável que é definida em seu sistema operacional, em vez de dentro de seu aplicativo. Consiste em um nome e valor. Recomendamos que você defina o nome da variável como OPENAI_API_KEY. Ao manter esse nome de variável consistente em toda a sua equipe, você pode confirmar e compartilhar seu código sem o risco de expor sua chave de API.
+
+
+Configuração do Windows
+
+Opção 1:  Defina sua variável de ambiente 'OPENAI_API_KEY' através do prompt cmd
+
+Execute o seguinte no prompt cmd, substituindo <suachave> por sua chave de API:
+
+setx OPENAI_API_KEY “<yourkey>”
+Isso se aplicará a uma futura janela de prompt cmd, portanto, você precisará abrir uma nova para usar essa variável com curl. Você pode validar se essa variável foi definida abrindo uma nova janela de prompt cmd e digitando 
+
+echo %OPENAI_API_KEY%
+
+
+
+
+ou
+
+
+
+3. Selecione Novo...  na seção Variáveis do usuário (topo). Adicione seu par de valores nome/chave, substituindo <suachave> por sua chave de API.
+
+Variable name: OPENAI_API_KEY
+Variable value: <yourkey>
+
