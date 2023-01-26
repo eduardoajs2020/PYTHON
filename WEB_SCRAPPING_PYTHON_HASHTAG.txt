@@ -1,0 +1,103 @@
+PASSOS WEB SACRAPPING
+
+import selenium
+!pip install selenium
+
+baixar webdriver(chrome -> chromedriver  ou firefox -> geckodriver) => copiar na pasta do python
+
+from selenium import webdriver  # importa só o webdriver
+from selenium.webdriver.common.keys import keys
+import pandas as pd
+
+1 - Pegar a cotação do Dolar
+
+#abrir navegador
+
+navegador = webdriver.Chrome()
+
+#entrar no google
+
+navegador.get("https://www.google.com.br/")
+
+#pesquisar cotação do dolar no google
+
+navegador.find_element('xpath', '/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input').send_keys("cotação dolar")
+navegador.find_element('xpath', '/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input').send_keys).send_keys(keys.ENTER)
+
+#pegar a cotação
+
+cotacao_dolar = navegador.find_element('xpath','//*[@id="knowledge-currency__updatable-data-					column"]/div[1]/div[2]/span[1]').get_attribute('data-value')
+
+print(cotacao_dolar)
+
+2 - Pegar a cotação do Euro
+
+#abrir navegador
+
+navegador = webdriver.Chrome()
+
+#entrar no google
+
+navegador.get("https://www.google.com.br/")
+
+#pesquisar cotação do dolar no google
+
+navegador.find_element('xpath', '/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input').send_keys("cotação euro")
+navegador.find_element('xpath', '/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input').send_keys).send_keys(keys.ENTER)
+
+#pegar a cotação
+
+cotacao_euro = navegador.find_element('xpath','//*[@id="knowledge-currency__updatable-data-					column"]/div[1]/div[2]/span[1]').get_attribute('data-value')
+
+print(cotacao_euro)
+
+3 - Pegar a cotação do Ouro
+
+#abrir navegador
+navegador = webdriver.Chrome()
+
+#entrar no google
+
+navegador.get("https://www.melhorcambio.com/ouro-hoje#:~:text=O%20valor%20do%20grama%20do,%C3%A9%20de%20car%C3%A1ter%20exclusivamente%20informativo.")
+
+
+#pegar a cotação
+
+cotacao_ouro = navegador.find_element('xpath','//*[@id="comercial"]').get_attribute('value')
+cotacao_ouro = cotacao_ouro.repalce(",",".")
+print(cotacao_ouro)
+
+navegador.quit()
+
+4 - Atualizar a base de dados
+import pandas as pd
+import openpyxl
+import numphy
+
+tabela = pd.read_excel("Produtos.xlsx")
+print(tabela)
+
+5 - Recalcular os preços
+
+#atualizar as cotações
+
+
+tabela.loc[tabela["Moeda"] == "Dolar", "Cotação"] = float(cotacao_dolar) # loc = editar um item específico
+tabela.loc[tabela["Moeda"] == "Euro", "Cotação"] = float(cotacao_Euro)
+tabela.loc[tabela["Moeda"] == "Ouro", "Cotação"] = float(cotacao_Ouro)
+
+
+#Preço de compra = preco original + cotacao
+
+tabela["Preco de Compra"] = tabela ["Preço Original"] * tabela["Cotação]
+
+#preco de venda = preco de compra + margem
+
+tabela["Preco de Venda"] = tabela ["Preço de Compra"] * tabela["Margem"]
+
+print(tabela)
+
+6 - Exportar a base de dados atualizada
+
+tabela.to_excel("Produtos_novo.xlsx", index=False)
+

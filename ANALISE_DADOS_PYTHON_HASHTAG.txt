@@ -1,0 +1,75 @@
+import pandas
+import plotly.express(!pip install plotly) #Biblioteca de gráficos
+
+
+1 - Importar base de dados
+
+import pandas as pd
+tabela = pd.read_csv("telecom_users.csv) #ou use tabula para .pdf
+
+
+2 - Visualizar a base de dados
+display(tabela) ou print(tabela)
+
+# Excluir informações inúteis
+axis =0 -> eixo da linha
+axis =1 -> eixo da coluna
+tabela = tabela.drop("Unnamed: 0", axis=1)
+display(tabela)
+
+A - Entender as informações que você tem disponivel
+
+B - descobrir as cagadas da base de dados
+#informações do tipo correto(número, texto, etc...)
+#informações vazias
+
+
+3 - Tratar os dados(resolver as cagadas da base de dados)
+#informações do tipo correto(número, texto, etc...)
+tabela["TotalGasto"] = pd.to_numeric(tabela["TotalGasto"], erros= "coerce") #transforma em numérico e força a conversão das 
+erradas em vazio.
+print(tabela.info()) # Exibe o resumo da base de dados.
+
+#informações vazias
+#colunas completamente vazias -> excluir
+tabela = tabela.dropna(how="all", axis=1)
+print(tabela.info()) # Exibe o resumo da base de dados.
+
+#linhas que tem alguma informação vazia-> excluir
+tabela = tabela.dropna(how="any", axis=0)
+print(tabela.info()) # Exibe o resumo da base de dados.
+
+
+4 - Análise inicial dos dados
+#como estão os cancelamentos? 26%
+print(tabela["Churn"].value_counts()) # exibe valores absolutos
+
+print(tabela["Churn"].value_counts(normalize=True).map("{:.1%}".format)) # exibe em percentual
+
+5 - Descobrir os motivos do cancelamento #GRAFICOS
+
+import plotly.express as px
+
+# Etapa1: criar o gráfico
+grafico = px.histogram(tabela, x= "MesesComoCliente", color= "Churn")
+
+# Etapa2: exibir o gráfico
+grafico.show()
+
+#para criar vários gráficos:
+for coluna in tabela.columns: 
+	grafico = px.histogram(tabela, x= coluna, color= "Churn", text_auto=True)
+	grafico.show()
+
+#Conclusões e ações
+
+- Clientes que estão a pouco tempo, estão cancelando muito
+	- Pode estar fazendo alguma promoção com o 1° mês de graça
+	- O inicio do serviço está sendo muito confuso para o cliente
+	- A primeira experiência do cliente está ruim
+	- podemos criar incentivos nos primeiros meses
+- Boleto eletronico tem muito mais cancelamento
+- Cliente com contrato mensal, cancelam muito mais
+- Quanto mais serviços o cliente tem, menor a chance dele cancelar
+-Cliente com mais linhas e familia maior, tem menos chance de cancelar
+www.kaglle.com
