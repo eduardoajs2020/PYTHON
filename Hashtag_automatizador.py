@@ -2,7 +2,8 @@
 # FERRAMENTA: AUTOMATIZADOR DO MOUSE, TECLADO E A TELA (BIBLIOTECA: PYAUTOGUI) = !pip install pyautogui
 
 import pyautogui
-import pyperclip  # Copiar e colar o texto
+import pyperclip
+import pyperclip # Copiar e colar o texto
 import time  # espera somente na primeira linha
 import pandas  # copiar bases de dados para
 

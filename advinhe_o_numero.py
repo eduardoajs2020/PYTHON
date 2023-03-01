@@ -1,6 +1,3 @@
-from gettext import install
-import pip
-
 
 print('Vou ler a sua mente!')
 input()

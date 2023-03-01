@@ -1,6 +1,6 @@
 #arquivo = open('manipular textos.txt', 'r')
 arquivo = open('C:/PHP/readme-redist-bins.txt', 'r')
 lista = arquivo.readlines()
-print(lista[10])
-#print(lista)
+#print(lista[10])
+print(lista)
 arquivo.close()

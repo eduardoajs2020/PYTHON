@@ -1,6 +1,6 @@
 from distutils.command.install import install
 
-import pip
+
 import selenium
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -12,6 +12,6 @@ s = Service(driver_path)
 option = webdriver.ChromeOptions()
 option.binary_location = brave_path
 browser = webdriver.Chrome(service=s, options=option)
-browser.get("https://www.google.es")
+browser.get("https://www.google.br")
 
 

@@ -5,7 +5,7 @@
 # rw= leitura e escrita
 
 
-with open('manipular textos.txt ', 'r') as arquivo:
+with open('C:\PROJETOS DEV\PYTON\manipular textos.txt ', 'r') as arquivo:
     mercadinho = arquivo.readlines()
     print(mercadinho)
     arquivo.close()
