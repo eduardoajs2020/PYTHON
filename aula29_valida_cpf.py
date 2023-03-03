@@ -48,6 +48,6 @@ while True:
     # Descobri que sequências avaliavam como verdadeiro, então também
     # adicionei essa checagem aqui
     if cpf == novo_cpf and not sequencia:
-        print('Válido')
+        print('Valido')
     else:
-        print('Inválido')
+        print('Invalido')

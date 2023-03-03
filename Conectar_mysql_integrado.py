@@ -19,7 +19,7 @@ conn = pymysql.connect(host='localhost',
 mycursor = conn.cursor()
 
 #Execute a query
-mycursor.execute("SELECT * FROM dicionario ORDER BY palavra desc")
+mycursor.execute("SELECT * FROM dicionario")
 
 # Fetch the results
 results = mycursor.fetchall()

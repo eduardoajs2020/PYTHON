@@ -1,4 +1,4 @@
-hora = input('Que horas são? ')
+hora = input('Que horas sao? ')
 try:
     hora = int(hora)
 except:

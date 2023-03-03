@@ -1,7 +1,3 @@
-from distutils.command.install import install
-
-
-import selenium
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 

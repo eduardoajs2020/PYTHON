@@ -1,6 +1,6 @@
 # positivos [012345678]
 
-texto = 'Python s2'
+texto = 'Python S2'
 
 # negativos -[987654321]
 

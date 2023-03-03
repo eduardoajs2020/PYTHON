@@ -1,0 +1,311 @@
+#Conecta ao MSSQL Server
+
+import pyodbc as pyodbc
+
+
+server = 'LAPTOP-6L4CV4JD\\SQLEXPRESS'
+database = 'DIO_MAIO'
+trusted_connection = 'yes'  # ou 'true' = Usa o logon integrado do windows
+
+
+conn = pyodbc.connect ('DRIVER={ODBC Driver 17 for SQL Server};' 
+                       'SERVER=' + server + ';' 
+                       'DATABASE=' + database + ';'
+                       'Trusted_Connection=' + trusted_connection + ';')
+
+
+mycursor = conn.cursor()
+
+mycursor.execute("SELECT * FROM dbo.PRODUTOS")
+
+results = mycursor.fetchall()
+
+for row in results:
+
+    print(row)
+
+conn.close()
+
+
+Para criar um front-end para exibir a consulta SQL, você pode utilizar uma biblioteca GUI em Python, como Tkinter, PyQt ou wxPython. Aqui está um exemplo de como criar uma aplicação usando Tkinter:
+
+
+import pyodbc
+import tkinter as tk
+from tkinter import ttk
+
+class Application(tk.Frame):
+    def __init__(self, master=None):
+        super().__init__(master)
+        self.master = master
+        self.pack()
+        self.create_widgets()
+
+    def create_widgets(self):
+        # Conexão com o banco de dados SQL Server
+        server = 'LAPTOP-6L4CV4JD\\SQLEXPRESS'
+        database = 'DIO_MAIO'
+        trusted_connection = 'yes'
+
+        conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};' 
+                              'SERVER=' + server + ';' 
+                              'DATABASE=' + database + ';' 
+                              'Trusted_Connection=' + trusted_connection + ';')
+
+        mycursor = conn.cursor()
+
+        mycursor.execute("SELECT * FROM dbo.PRODUTOS")
+
+        # Cria uma tabela para exibir os resultados
+        table = ttk.Treeview(self, columns=('ID', 'Nome', 'Preco'))
+
+        table.heading('ID', text='ID')
+        table.heading('Nome', text='Nome')
+        table.heading('Preco', text='Preco')
+
+        # Adiciona os resultados à tabela
+        for row in mycursor.fetchall():
+            table.insert('', 'end', values=row)
+
+        # Configura a tabela para preencher a janela
+        table.pack(fill='both', expand=True)
+
+        # Fecha a conexão com o banco de dados
+        conn.close()
+
+root = tk.Tk()
+app = Application(master=root)
+app.mainloop()
+
+
+
+Este código cria uma janela que exibe uma tabela com os resultados da consulta SQL. A consulta é executada dentro do método create_widgets() e os resultados são adicionados à tabela usando o método insert(). A biblioteca ttk é usada para criar a tabela com cabeçalhos e colunas.
+
+
+
+==========================================================================================================================
+
+
+Para criar um front-end para exibir a consulta que você compartilhou, você pode usar uma biblioteca de interface gráfica do usuário (GUI) em Python, como Tkinter, PyQt ou wxPython.
+
+Aqui está um exemplo de como você pode criar uma interface gráfica simples usando Tkinter para exibir os resultados da consulta:
+
+
+
+
+import pyodbc as pyodbc
+import tkinter as tk
+from tkinter import ttk
+
+# Conexão com o banco de dados
+server = 'LAPTOP-6L4CV4JD\\SQLEXPRESS'
+database = 'DIO_MAIO'
+trusted_connection = 'yes'  # ou 'true' = Usa o logon integrado do windows
+conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};'
+                      'SERVER=' + server + ';'
+                      'DATABASE=' + database + ';'
+                      'Trusted_Connection=' + trusted_connection + ';')
+mycursor = conn.cursor()
+
+# Executa a consulta SQL
+mycursor.execute("SELECT * FROM dbo.PRODUTOS")
+results = mycursor.fetchall()
+
+# Cria a janela principal
+root = tk.Tk()
+root.title("Exemplo de consulta SQL")
+
+# Cria uma tabela para exibir os resultados da consulta
+table = ttk.Treeview(root, columns=tuple(range(len(results[0]))), show='headings')
+table.pack()
+
+# Define o cabeçalho da tabela
+for i in range(len(results[0])):
+    table.heading(i, text="Coluna {}".format(i+1))
+
+# Preenche a tabela com os dados da consulta SQL
+for row in results:
+    table.insert('', 'end', values=row)
+
+# Inicia a GUI
+root.mainloop()
+
+# Fecha a conexão com o banco de dados
+conn.close()
+
+
+
+Este código cria uma janela principal usando a biblioteca Tkinter. Em seguida, ele executa a consulta SQL e preenche uma tabela com os resultados usando a biblioteca ttk.Treeview. O resultado da consulta é exibido na tabela na janela principal.
+
+Lembre-se de adaptar as informações de conexão do banco de dados (server, database, trusted_connection) para as informações do seu próprio banco de dados.
+
+======================================================================================================================
+
+
+#manipular excel
+
+from openpyxl import Workbook, load_workbook
+
+# Para alterar os estilos de formatação das células
+from openpyxl.styles import PatternFill, Font
+
+# Carregar dados para variável
+wb = load_workbook('C:\\PROJETOS DEV\\PYTON\\test.xlsx')
+
+# Escolhe active sheet
+ws = wb.active
+
+# Deleta primeira coluna, que é somente índice
+ws.delete_cols(1)
+
+# Cabeçalho em negrito e fundo azul
+# Fill parameters(preenchimento)
+my_fill = PatternFill(start_color='5399FF',
+                   end_color='5399FF',
+                   fill_type='solid')
+# Bold Parameter
+my_font = Font(bold=True)
+
+# Formata o cabeçalho
+my_header = ['A1', 'B1', 'C1', 'D1', 'E1',
+             'F1', 'G1', 'H1', 'I1', 'J1', 'K1']  # Colunas
+
+for cell in my_header:
+    ws[cell].fill = my_fill
+    ws[cell].font = my_font
+
+# Adiciona fórmula SUM
+ws['K1'] = 'Total' #Celula do resultado
+for i in range(2,25): # Variavel de iteração de linhas
+    ws['F' + str(i)] = f'=SUM(C{i}:J{i})' #Formula colunas
+    ws['F' + str(i)].font = my_font
+    ws['F' + str(i)].fill = my_fill
+
+# Salva o arquivo
+wb.save('C:\\PROJETOS DEV\\PYTON\\test.xlsx')
+
+
+
+
+
+
+
+
+
+Receitas para manipular arquivos de texto em Python
+#Receitas rápidas e práticas para quem está com pressa.
+
+#Se você está tranquilo e quiser entendê-las, sugiro a leitura do artigo Manipulando arquivos de texto em Python.
+
+#Iterar sobre um arquivo
+#Certifique-se de que o arquivo exista.
+
+arquivo = open('C:\\PROJETOS DEV\\PYTON\\mercadinho.txt', 'r')
+for linha in arquivo:
+    print(linha)
+arquivo.close()
+
+
+#Ler todas as linhas em um única string
+arquivo = open('C:\\PROJETOS DEV\\PYTON\\mercadinho.txt', 'r')
+unica_string = arquivo.read()
+arquivo.close()
+
+#Ler todas as linhas em uma lista
+arquivo = open('C:\\PROJETOS DEV\\PYTON\\mercadinho.txt', 'r')
+lista = arquivo.readlines() # readlinesssssss
+arquivo.close()
+
+
+#Ler linha a linha do arquivo
+arquivo = open('C:\\PROJETOS DEV\\PYTON\\mercadinho.txt', 'r')
+primeira_linha = arquivo.readline()
+segunda_linha  = arquivo.readline()
+terceira_linha = arquivo.readline()
+# etc...
+arquivo.close()
+
+
+#Criar um arquivo vazio
+#Certifique-se de que o arquivo não exista, se não ele irá apagar seu conteúdo.
+
+arquivo = open('C:\\PROJETOS DEV\\PYTON\\novo-arquivo.txt', 'w')
+arquivo.close()
+
+#Apagar o conteúdo de um arquivo
+#A mesma que a anterior.
+
+arquivo = open('C:\\PROJETOS DEV\\PYTON\\novo-arquivo.txt', 'w')
+arquivo.close()
+
+#Escrever em um arquivo
+#Se o arquivo já existir ele irá sobrescrever todo o conteúdo.
+
+arquivo = open('C:\\PROJETOS DEV\\PYTON\\novo-arquivo.txt', 'w')
+arquivo.write('nova linha')
+arquivo.close()
+
+#Inserir conteúdo ao já existente (adicionar)
+
+arquivo = open('C:\\PROJETOS DEV\\PYTON\\novo-arquivo.txt', 'r') # Abra o arquivo (leitura)
+conteudo = arquivo.readlines()
+conteudo.append('C:\\PROJETOS DEV\\PYTON\\mercadinho.txt')   # insira seu conteúdo
+
+arquivo = open('C:\\PROJETOS DEV\\PYTON\\novo-arquivo.txt', 'w') # Abre novamente o arquivo (escrita)
+arquivo.writelines(conteudo)    # escreva o conteúdo criado anteriormente nele.
+
+print(conteudo)
+
+arquivo.close()
+
+
+
+#Cotação dollar
+
+
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+
+
+navegador = webdriver.ChromiumEdge()
+
+navegador.get("https://www.google.com.br/")
+
+navegador.find_element('xpath', '/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input').send_keys("cotação dollar")
+navegador.find_element('xpath', '/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input').send_keys(Keys.ENTER)
+
+cotacao_dolar = navegador.find_element('xpath','//*[@id="knowledge-currency__updatable-data-column"]/div[1]/div[2]/span[1]').get_attribute('data-value')
+
+print(cotacao_dolar)
+
+
+
+#Ler txt
+
+# r= read(ler)
+# w= write(escrever)
+# a= append(incrementar)
+# x= criar arquivo
+# rw= leitura e escrita
+
+
+with open('C:\PROJETOS DEV\PYTON\manipular textos.txt ', 'r') as arquivo:
+    mercadinho = arquivo.readlines()
+    print(mercadinho)
+    arquivo.close()
+
+
+
+
+
+#Ler string
+
+usuario = input('Digite seu primeiro nome: ')
+qtd_caracteres = len(usuario)
+
+if qtd_caracteres <= 4:
+    print('O seu nome é muito curto!')
+elif 5 >= qtd_caracteres <= 6:
+    print('O seu nome é normal!')
+else:
+    print('O seu nome é muito grande!')

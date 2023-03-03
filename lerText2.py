@@ -1,5 +1,6 @@
 #arquivo = open('manipular textos.txt', 'r')
-arquivo = open('C:/PHP/readme-redist-bins.txt', 'r')
+#arquivo = open('C:/PHP/readme-redist-bins.txt', 'r')
+arquivo = open('C:\\PROJETOS DEV\\PYTON\\PROCESSO_QUEBRA_DE_CAIXA.csv', 'r')
 lista = arquivo.readlines()
 #print(lista[10])
 print(lista)
