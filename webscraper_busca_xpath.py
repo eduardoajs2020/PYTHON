@@ -1,3 +1,4 @@
+from IPython.display import display
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
@@ -8,8 +9,7 @@ navegador = webdriver.Edge()
 navegador.get('https://www.tjmg.jus.br/portal-tjmg/processos/andamento-processual/#.ZANXnBXMLrc')
 
 # encontra o elemento que deve ser clicado
-elemento = navegador.find_element(
-    'xpath', '/html/body/div[1]/main/div[2]/div/div/div/div/article/div[2]/section[1]/div/div/div/div[1]/form/div[1]/select')
+elemento = navegador.find_element('xpath', '/html/body/div[1]/main/div[2]/div/div/div/div/article/div[2]/section[1]/div/div/div/div[1]/form/div[1]/select')
 
 # utiliza o ActionChains para mover para o elemento e clicá-lo
 ActionChains(navegador).move_to_element(elemento).click().perform()
@@ -26,7 +26,7 @@ navegador.find_element('xpath','/html/body/div[1]/main/div[2]/div/div/div/div/ar
 
 ActionChains(navegador).move_to_element(elemento).perform()
 navegador.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-navegador.find_element('xpath','/html/body/div[1]/main/div[2]/div/div/div/div/article/div[2]/section[1]/div/div/div/div[1]/form/div[4]/div/input[1]').send_keys("Celio Silva")
+navegador.find_element('xpath','/html/body/div[1]/main/div[2]/div/div/div/div/article/div[2]/section[1]/div/div/div/div[1]/form/div[4]/div/input[1]').send_keys("Eduardo Souza")
 
 #navegador.implicitly_wait(5)
 
@@ -41,7 +41,8 @@ except:
     consulta_processo = navegador.find_element('xpath', '/html/body/p[4]')
 
 
-print(consulta_processo.text)
+display(consulta_processo.text)
+
 
 #navegador.implicitly_wait(5)
 
