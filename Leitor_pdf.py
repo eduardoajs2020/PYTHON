@@ -10,7 +10,7 @@ pdfReader = PyPDF4.PdfFileReader(pdfFileObj)
 # captura primeira pagina do pdf
 pageObj = pdfReader.getPage(1)
 
-# Extrai texto do PDF e passa para variavel
+#Extrai texto do PDF e passa para variavel
 text = pageObj.extractText()
 
 # mostra texto do PDF
