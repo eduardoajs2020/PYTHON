@@ -1,5 +1,5 @@
 import pandas as pd
-import pyodbc
+import pyodbc as pyodbc
 
 # Conectar ao banco de dados usando o driver ODBC
 server = 'LAPTOP-6L4CV4JD\\SQLEXPRESS'
